@@ -4,16 +4,34 @@ Deep-dive notes on backend engineering concepts and interview questions, aimed a
 
 ## Scope — how this fits with your other repos
 
-This repo deliberately covers the topics that sit *between* language internals, low-level design, high-level system design, and databases, so it doesn't duplicate what's already built elsewhere.
+Four repos form one prep pipeline. The same topic name can legitimately appear in more than one of them — the boundary is **depth**, not topic:
 
-| Already covered elsewhere | NOT duplicated here |
-|---|---|
-| Go internals | Goroutines/channels internals, GC, scheduler, memory model, language-specific runtime behavior |
-| LLD | OOP design, SOLID, GoF design patterns, class-diagram exercises |
-| HLD | Full system-design case studies (design Twitter/Uber/TinyURL), whole-system scalability/sharding/CAP discussions |
-| Database engineering | SQL/NoSQL internals, indexing internals, transactions/ACID, query optimization, DB replication/sharding |
+| Repo | Depth | What it owns |
+|---|---|---|
+| `HLD-learning` | Shallow, vocabulary pass | Name the concept, 1-2 line trade-off — just enough to not freeze mid system-design interview |
+| **This repo** | Deep, theory-only | Mechanism internals, trade-offs, production gotchas, layered interviewer follow-up questions — no code |
+| `LLD-learning` | Hands-on, timed | All coding exercises: OOP/SOLID/design patterns plus the implementable problems (rate limiter, circuit breaker, LRU cache, notification service, pub/sub, etc.) |
+| `Go-Learning` | Deep, language-only | Goroutines/channels internals, GC, scheduler, memory model — a different topic domain entirely |
+| Database engineering | Deep, DB-only | SQL/NoSQL internals, indexing, transactions/ACID, query optimization, replication/sharding |
 
-What **is** covered here: the practical "glue" engineering knowledge that every backend interview at the 3–4 YOE level probes — API design, auth & security, caching, messaging, resilience, observability, testing, networking, deployment, and architectural patterns. Where a topic overlaps with system design at the *pattern* level (e.g., circuit breakers, sagas), it's covered here at the concept/pattern level; full-scale system design write-ups belong in your HLD repo.
+What **is** covered here: the practical "glue" engineering knowledge that every backend interview at the 3–4 YOE level probes — API design, auth & security, caching, messaging, resilience, observability, testing, networking, deployment, and architectural patterns — at the deep-theory-plus-follow-ups level described above.
+
+### Where to go deeper for the same topic
+
+| Topic (this repo) | `HLD-learning` vocabulary section | `LLD-learning` coding exercise |
+|---|---|---|
+| API Design | APIs, Load Balancers & Gateway | Rate Limiter (partial overlap) |
+| Networking & Protocols | — | — |
+| Auth & Security | Security Basics | — |
+| Testing Strategies | — | — |
+| Caching | Caching | In-memory LRU Cache |
+| Messaging & Event-Driven Systems | Messaging & Async Processing | Notification Service, Pub/Sub System |
+| Resilience & Fault Tolerance | Reliability & Observability | Rate Limiter, Circuit Breaker |
+| Observability | Reliability & Observability | — |
+| Deployment, CI/CD & Cloud | — | — |
+| Architectural Patterns | — | — |
+
+A "—" means that topic stays theory-only across the whole pipeline: no coding exercise exists for it in `LLD-learning`, and it isn't part of `HLD-learning`'s vocabulary list either.
 
 ## Topics
 
@@ -35,6 +53,6 @@ What **is** covered here: the practical "glue" engineering knowledge that every 
 - **Phase 3 — Production behavior:** Resilience → Observability → Deployment
 - **Phase 4 — Architecture vocabulary:** Architectural Patterns
 
-For each topic, follow the same interview loop: learn the core concept, complete a small Go exercise, test edge cases, review common gotchas, answer follow-up questions, and finish with a short HLD scale-up discussion. The deeper end-to-end service comes after this first pass.
+For each topic, follow the same interview loop: learn the core concept, work through a layered follow-up drilling chain, review common gotchas, answer interview questions, and close with a one-line pointer to the matching `LLD-learning` exercise or `HLD-learning` section (see the table above) if one exists.
 
 Each file ends with a rapid-fire Q&A list for self-testing.
