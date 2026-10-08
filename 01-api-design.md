@@ -294,18 +294,33 @@ These are the layered, production-judgment questions an interviewer chains on to
 
 ## Rapid-fire Q&A
 
-1. **Is `PUT` idempotent?** Yes — repeating it produces the same end state.
-2. **Is `POST` idempotent by default?** No — needs an idempotency key to make retries safe.
-3. **401 vs 403?** 401 = not authenticated ("who are you"); 403 = authenticated but not authorized ("I know you, you can't").
-4. **409 vs 422?** 409 = conflicts with current resource state; 422 = well-formed request, failed validation.
-5. **Status code for a rate-limited request?** `429`, with a `Retry-After` header.
-6. **Offset pagination's main weakness at scale?** `OFFSET n` still scans and discards `n` rows in most SQL engines, and results drift under concurrent writes.
-7. **What must a cursor encode to avoid skip/duplicate bugs?** A unique, stable sort-key tuple — not a non-unique column alone.
-8. **What problem does an `Idempotency-Key` header solve?** Makes retried non-idempotent requests (like POST) safe to repeat.
-9. **Why must the idempotency "claim" be atomic?** To avoid a race where two concurrent retries both pass a check before either has recorded its claim.
-10. **Token bucket vs leaky bucket — which allows bursts?** Token bucket (unused tokens accumulate); leaky bucket smooths to a constant rate.
-11. **Why does per-instance in-memory rate limiting fail at scale?** Each instance counts independently, so the effective global limit multiplies by instance count.
-12. **GraphQL's classic backend performance pitfall?** The N+1 query problem from naive per-field resolvers — fixed with batching (e.g., DataLoader).
-13. **Why avoid stack traces in error responses?** Information disclosure — leaks internals attackers can use.
-14. **What does RFC 9457 standardize?** A consistent `type`/`title`/`status`/`detail`/`instance` JSON shape for HTTP API errors.
-15. **Best practice for deprecating a public API version?** Announce ahead of time, run old + new in parallel, signal via `Deprecation`/`Sunset` headers — never a silent cutover.
+1. **Is `PUT` idempotent?**<br>
+   **A:** Yes — repeating it produces the same end state.
+2. **Is `POST` idempotent by default?**<br>
+   **A:** No — needs an idempotency key to make retries safe.
+3. **401 vs 403?**<br>
+   **A:** 401 = not authenticated ("who are you"); 403 = authenticated but not authorized ("I know you, you can't").
+4. **409 vs 422?**<br>
+   **A:** 409 = conflicts with current resource state; 422 = well-formed request, failed validation.
+5. **Status code for a rate-limited request?**<br>
+   **A:** `429`, with a `Retry-After` header.
+6. **Offset pagination's main weakness at scale?**<br>
+   **A:** `OFFSET n` still scans and discards `n` rows in most SQL engines, and results drift under concurrent writes.
+7. **What must a cursor encode to avoid skip/duplicate bugs?**<br>
+   **A:** A unique, stable sort-key tuple — not a non-unique column alone.
+8. **What problem does an `Idempotency-Key` header solve?**<br>
+   **A:** Makes retried non-idempotent requests (like POST) safe to repeat.
+9. **Why must the idempotency "claim" be atomic?**<br>
+   **A:** To avoid a race where two concurrent retries both pass a check before either has recorded its claim.
+10. **Token bucket vs leaky bucket — which allows bursts?**<br>
+    **A:** Token bucket (unused tokens accumulate); leaky bucket smooths to a constant rate.
+11. **Why does per-instance in-memory rate limiting fail at scale?**<br>
+    **A:** Each instance counts independently, so the effective global limit multiplies by instance count.
+12. **GraphQL's classic backend performance pitfall?**<br>
+    **A:** The N+1 query problem from naive per-field resolvers — fixed with batching (e.g., DataLoader).
+13. **Why avoid stack traces in error responses?**<br>
+    **A:** Information disclosure — leaks internals attackers can use.
+14. **What does RFC 9457 standardize?**<br>
+    **A:** A consistent `type`/`title`/`status`/`detail`/`instance` JSON shape for HTTP API errors.
+15. **Best practice for deprecating a public API version?**<br>
+    **A:** Announce ahead of time, run old + new in parallel, signal via `Deprecation`/`Sunset` headers — never a silent cutover.
